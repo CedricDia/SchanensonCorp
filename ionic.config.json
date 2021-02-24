@@ -1,0 +1,7 @@
+{
+  "name": "Dragou",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

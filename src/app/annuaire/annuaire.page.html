@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>annuaire</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <h1>Annuaire EAPAS​</h1>
+
+
+  <ion-searchbar (input)="getItems($event)"></ion-searchbar> 
+
+  <ion-card *ngFor="let eapas of listEapas">
+    <ion-card-header>
+      
+        <ion-avatar>
+          <img src="https://pbs.twimg.com/profile_images/610519688469192707/r_v7L5HG_400x400.jpg">
+        </ion-avatar>
+        <ion-card-title style="font-size: medium;">{{ eapas.nom }} {{ eapas.prenom }}</ion-card-title>
+        <ion-card-subtitle style="font-size: small;">{{ eapas.description }}</ion-card-subtitle>
+    
+      
+      <ion-grid>
+        <ion-row><ion-label>{{ eapas.adresse }}</ion-label></ion-row>
+        <!--<ion-row><ion-label> {{ eapas.tel }}</ion-label></ion-row>-->
+        <!--<ion-row><ion-label>{{ eapas.mail }}</ion-label></ion-row>-->
+      </ion-grid>
+      
+    </ion-card-header>
+  
+    <ion-card-content>
+      <ion-label *ngIf="eapas.diplome">Diplome: {{ eapas.diplome }}</ion-label>
+      <ion-label *ngIf="!eapas.diplome">Diplome: non renseigné</ion-label>
+      <ion-button color="primary" style="font-size: small;">Rentrer en contact</ion-button>
+    </ion-card-content>
+
+  </ion-card>
+
+
+</ion-content>

@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Home</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+
+
+  <ion-grid>
+    <ion-row class="center">
+      <div class="circle vertical-allign">
+        <ion-label class="text-circle">Bouger</ion-label>
+     </div>
+    </ion-row>
+
+    <ion-row class="center">
+      <ion-col>
+        <div class="circle vertical-allign" routerLink="/annuaire">
+          <ion-label class="text-circle">Annuaire professionnel</ion-label>
+        </div>
+      </ion-col>
+
+
+      <ion-col>
+        <div class="circle vertical-allign" routerLink="/pathologie" (click)="ResetWarning()">
+          <ion-label class="text-circle">En apprendre +</ion-label>
+        </div>
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

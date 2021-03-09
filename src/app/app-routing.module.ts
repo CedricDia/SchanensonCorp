@@ -22,6 +22,18 @@ const routes: Routes = [
   {
     path: 'annuaire',
     loadChildren: () => import('./annuaire/annuaire.module').then( m => m.AnnuairePageModule)
+  },
+  {
+    path: 'global',
+    loadChildren: () => import('./Tests/global/global.module').then( m => m.GlobalPageModule)
+  },
+  {
+    path: 'ricci',
+    loadChildren: () => import('./Tests/ricci/ricci.module').then( m => m.RicciPageModule)
+  },
+  {
+    path: 'multiple-tests',
+    loadChildren: () => import('./Tests/multiple-tests/multiple-tests.module').then( m => m.MultipleTestsPageModule)
   }
 ];
 

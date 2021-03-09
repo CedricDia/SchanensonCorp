@@ -26,6 +26,7 @@
 @import "~@ionic/angular/css/flex-utils.css";
 
 
+
 @font-face {
     font-family: 'Berlin Sans FB Regular';
     src: url('../resources/Font/Berlin\ Sans\ FB\ Regular.ttf');
@@ -33,3 +34,8 @@
     font-style: normal;
   }
 
+  
+ion-content{
+    font-family: Berlin Sans FB Regular;
+    --background: url("./assets/Backgrounds/fond_neutre.png") no-repeat center/cover fixed;
+}

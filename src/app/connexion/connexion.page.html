@@ -4,6 +4,69 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content *ngIf="!this.globalVars.connected">
+  <div class="padding" *ngIf="!subscribe">
 
+    <div class="logo">
+      <ion-icon class="color-orange" name="person-circle-outline"></ion-icon>
+      <!-- <img src="../../assets/logo.png"> -->
+    </div>
+
+    <ion-item>
+      <ion-label><b>Email</b></ion-label>
+      <ion-input [(ngModel)]="dataUser.email" placeholder="Entrez votre email"></ion-input>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label><b>Mot de passe</b></ion-label>
+      <ion-input [(ngModel)]="dataUser.password" type="password" placeholder="Entrez votre mot de passe"></ion-input>
+    </ion-item>
+    
+    <div class="ion-padding">
+      <ion-button color="light" fill="outline" shape="round" expand="block" (click)="login(); setSubscribe(false)">Connexion</ion-button>
+
+      <p style="text-align: center;">ou</p>
+      <ion-button shape="round" expand="block" (click)="setSubscribe(true)">Inscription</ion-button>
+    </div>
+
+
+  </div>
+  <div class="padding" *ngIf="subscribe">
+    <ion-title color="light">Vos Identifiants de Connexion:</ion-title>
+    <ion-item >
+      <ion-label color="light">Adresse Mail</ion-label>
+      <ion-input color="light" type="email" [(ngModel)]="dataUserInscription.email" placeholder="Adresse mail"></ion-input>
+    </ion-item>
+    <ion-item >
+      <ion-label color="light">Mot de Passe</ion-label>
+      <ion-input color="light" type="password" [(ngModel)]="dataUserInscription.password" placeholder="Mot de Passe"></ion-input>
+    </ion-item>
+    <ion-label *ngIf="errorMailPassword" color="light">{{errorMailPassword}}</ion-label>
+    <br/><br/>
+    <ion-title color="light">Quelques Informations sur Vous:</ion-title>
+    <ion-item>
+      <ion-label  color="light">Sexe</ion-label>
+      <ion-select [(ngModel)]="dataUserInscription.gender" placeholder="Select One">
+        <ion-select-option value="femme">Femme</ion-select-option>
+        <ion-select-option value="homme">Homme</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item >
+      <ion-label color="light">Prénom</ion-label>
+      <ion-input color="light" type="text" [(ngModel)]="dataUserInscription.firstname" placeholder="Prénom"></ion-input>
+    </ion-item>
+    <ion-item >
+      <ion-label color="light">Nom</ion-label>
+      <ion-input color="light" type="text" [(ngModel)]="dataUserInscription.name" placeholder="Nom"></ion-input>
+    </ion-item>
+    <ion-item >
+      <ion-label color="light">Date de Naissance</ion-label>
+      <ion-datetime displayFormat="DD/MMM/YYYY" pickerFormat="DD/MMM/YYYY" display-timezone="utc" min="1900-01-01" max="{{maxDate}}" [(ngModel)]="dataUserInscription.birthday" placeholder="Date de naissance" cancelText="Annuler" doneText="Valider"></ion-datetime>
+    </ion-item>
+    
+    <ion-button expand="block" color="light"  shape="round" fill="outline"  (click)="signUp()">Inscription</ion-button>
+    <ion-button expand="block" color="danger" shape="round" (click)="setSubscribe(false)">Retour</ion-button>
+
+  </div>
 </ion-content>
+

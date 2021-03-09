@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+
+import { Plugins, AppState } from '@capacitor/core';
+
+const { App } = Plugins; 
+
 @Component({
   selector: 'app-annuaire',
   templateUrl: './annuaire.page.html',
@@ -8,9 +14,12 @@ import { AngularFireDatabase } from '@angular/fire/database';
 })
 export class AnnuairePage implements OnInit {
 
+
   listEapas = [];
-  listEapasBackup = [];
-  isItemAvailable = false;
+  filterTerm: string;
+  selected = false;
+  indexSelect : number = 0;
+  id : number = 0;
   constructor(
     public afDB: AngularFireDatabase
   ) { 
@@ -35,41 +44,27 @@ export class AnnuairePage implements OnInit {
             adresse: eapa.payload.exportVal().Adresse,
             mail: eapa.payload.exportVal().Mail,
             pict_profil: eapa.payload.exportVal().Pict_profil,
+            profession: eapa.payload.exportVal().Profession,
+            site: eapa.payload.exportVal().Site,
+            url: eapa.payload.exportVal().Url,
+            id: this.id,
           })
+          this.id++;
         }
       })
     });
   }
 
-  
-  async getItems(evt) {
-  this.getEapasDatabase();
-  const val = evt.srcElement.value;
-
-
-  //const val = ev.target.value;
-
-  // if the value is an empty string don't filter the items
-  if (val && val.trim() !== '') {
-      this.isItemAvailable = true;
-      this.listEapas = this.listEapas.filter((currentEapas) => {
-          return (currentEapas.name.toLowerCase().indexOf(val.toLowerCase()) > -1);
-      })
-  } else {
-      this.isItemAvailable = false;
-  }
-/*
-
-  if (!searchTerm) {
-    return;
+  selectProfil(i : number)
+  {
+    this.selected = !this.selected;
+    this.indexSelect = i;
   }
 
-  this.listEapas = this.listEapas.filter(currentEapas => {
-    if (currentEapas.nom && searchTerm) {
-      console.log(currentEapas.nom);
-      console.log(searchTerm);
-      return (currentEapas.nom.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1);
-    }
-  });*/
-}
+  async launchApp(){
+    let ret = await App.canOpenUrl({ url: this.listEapas[this.indexSelect].url });
+    let retx = await App.openUrl({ url: this.listEapas[this.indexSelect].url });
+    console.log('Open url response: ', ret);
+  }
+
 }

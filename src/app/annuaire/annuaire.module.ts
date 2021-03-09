@@ -8,12 +8,14 @@ import { AnnuairePageRoutingModule } from './annuaire-routing.module';
 
 import { AnnuairePage } from './annuaire.page';
 
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    AnnuairePageRoutingModule
+    AnnuairePageRoutingModule,
+    Ng2SearchPipeModule
   ],
   declarations: [AnnuairePage]
 })

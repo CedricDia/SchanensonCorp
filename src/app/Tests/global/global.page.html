@@ -1,0 +1,115 @@
+<ion-content class="launch_content" *ngIf = "globalVars.firstTime">
+  <!-- BULLE -->
+  <div class="Dialogue">
+   <!-- <img class="Bulle" src="./assets/Bulle.png">-->
+
+   <div class="dragou">
+          <img src="../../../assets/Dragou/Dragou_smile.png" class="dragou-smile">
+  </div>
+    <!-- TEXTE -->
+      <div class="bloc vertical-allign">
+        <p class="dialogue-text">{{ dialogue }}</p>
+      </div>
+  </div>
+
+  <div class="Bouton-pos">
+    <ion-button class="Bouton-style" (click)="MajText()">{{ text_bouton}}</ion-button>
+  </div>
+
+</ion-content>
+
+<ion-content *ngIf="!globalVars.firstTime" class="Tests">
+  
+  <h1>Evaluons vos capacités</h1>
+  <ion-label style="font-size: medium; margin-bottom: 2%;">Ces tests vont permettre de vous réaliser un programme adapté</ion-label>
+
+  <hr class="solid">
+  
+
+  <ion-card>
+    <ion-card-header (click)="setShowExercices()">
+      <ion-card-title>Exercices d'évaluation</ion-card-title>
+      <ion-card-subtitle style="text-align: center;"><strong><i>(Cliquer pour afficher)</i></strong></ion-card-subtitle>
+    </ion-card-header>
+  
+    <ion-card-content style="background-color: #f5c79b98;" *ngIf="showExercices">
+      <ion-grid>
+        <ion-row class="center">
+          <ion-col style="text-align: center;">
+            <img [ngClass]="globalVars.globalTestValidity[0] ? 'img-solo-yes' : 'img-solo-not'" src="../../../assets/Logos/Interrogation.png" routerLink="/ricci">
+            <br>
+            <ion-label routerLink="/ricci">Niveau d'Activité Physique</ion-label>
+            <br>
+            <ion-label class="duree">~1min30</ion-label>
+          </ion-col>
+        </ion-row>  
+        <ion-row class="center">
+          <ion-col style="text-align: center;">
+            <img [ngClass]="globalVars.globalTestValidity[1] ? 'img-duo-yes' : 'img-duo-not'" (click)="defineTest(0)" src="./assets/Logos/Souplesse.png" routerLink="/multiple-tests">
+            <br>
+            <ion-label routerLink="/multiple-tests" (click)="defineTest(0)">Souplesse</ion-label>
+            <br>
+            <ion-label class="duree">~1min30</ion-label>
+          </ion-col>
+          <ion-col style="text-align: center;">
+            <img [ngClass]="globalVars.globalTestValidity[2] ? 'img-duo-yes' : 'img-duo-not'" (click)="defineTest(1); timerG.initTime('02:00');" src="./assets/Logos/Endurance.png" routerLink="/multiple-tests">
+            <br>
+            <ion-label routerLink="/multiple-tests" (click)="defineTest(1); timerG.initTime('02:00');">Endurance</ion-label>
+            <br>
+            <ion-label class="duree">~2min</ion-label>
+          </ion-col>
+        </ion-row>  
+        
+        <ion-row class="center">
+          <ion-col style="text-align: center;">
+            <img [ngClass]="globalVars.globalTestValidity[3] ? 'img-solo-yes' : 'img-solo-not'"  (click)="defineTest(2)" src="../../../assets/Logos/Book.png" routerLink="/multiple-tests">
+            <br>
+            <ion-label routerLink="/multiple-tests" (click)="defineTest(2)">Equilibre</ion-label>
+            <br>
+            <ion-label class="duree">~1min30</ion-label>
+          </ion-col>
+        </ion-row>  
+        <ion-row class="center">
+          <ion-col style="text-align: center;">
+            <img [ngClass]="globalVars.globalTestValidity[4] ? 'img-duo-yes' : 'img-duo-not'" src="./assets/Logos/Muscle.png" routerLink="/annuaire">
+            <br>
+            <ion-label routerLink="/annuaire">Force</ion-label>
+            <br>
+            <ion-label class="duree">~1min30</ion-label>
+          </ion-col>
+          <ion-col style="text-align: center;">
+            <img [ngClass]="globalVars.globalTestValidity[5] ? 'img-duo-yes' : 'img-duo-not'" src="./assets/Logos/Book.png" routerLink="/annuaire">
+            <br>
+            <ion-label routerLink="/annuaire">Endurance</ion-label>
+            <br>
+            <ion-label class="duree">~2min</ion-label>
+          </ion-col>
+        </ion-row> 
+      
+      </ion-grid>
+
+    </ion-card-content>
+  </ion-card>
+
+  <hr class="solid">
+  
+  <ion-card>
+    <ion-card-header (click)="setshowResult()">
+      <ion-card-title>Résultats</ion-card-title>
+      <ion-card-subtitle style="text-align: center;"><strong><i>(Cliquer pour afficher)</i></strong></ion-card-subtitle>
+    </ion-card-header>
+    <hr class="solid">
+    <ion-card-content style="background-color: white; display:inline-block" *ngIf="showResult">
+      <div class="text-align:center; align-items: center; justify-content: center; display:inline-block">
+        <apx-chart
+        [series]="chartOptions.series"
+        [chart]="chartOptions.chart"
+        [xaxis]="chartOptions.xaxis"
+        [title]="chartOptions.title" class="
+        display: inline-block;"
+        ></apx-chart>
+      </div>
+    </ion-card-content>
+
+  </ion-card>
+</ion-content>

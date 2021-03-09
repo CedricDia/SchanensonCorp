@@ -13,6 +13,12 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 
+import { GlobalService } from './global.service'
+import { TimerService } from './Utility/timer.service'
+
+import { NgApexchartsModule } from "ng-apexcharts";
+
+import { NativeAudio } from '@ionic-native/native-audio';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyCZzetlGKDdfTaGGamHF-dZvqWiKFYrU4g",
@@ -30,12 +36,17 @@ export const firebaseConfig = {
   imports: [BrowserModule, 
     IonicModule.forRoot(), 
     AppRoutingModule,
+    NgApexchartsModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
-    AngularFireStorageModule
+    AngularFireStorageModule,
   ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [
+    GlobalService,/*Variables globales*/
+    TimerService,/*Variables globales*/
+    NativeAudio,
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy}],
   bootstrap: [AppComponent],
 })
 export class AppModule {

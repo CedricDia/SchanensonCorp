@@ -1,0 +1,30 @@
+ion-content{
+    //--ion-background-color: linear-gradient(#c94b4b, #4b134f);
+    --ion-background-color: rgb(51, 51, 51);
+  }
+  ion-item{
+    --ion-background-color: transparent !important;
+  }
+  .padding{
+    padding: 5%;
+  }
+  .flex{
+    display: flex;
+    justify-content: space-between;
+  }
+  .logo{
+    height: 100px;
+    position: relative;
+    margin-bottom: 60px;
+  }
+  .logo ion-icon{
+    position: absolute;
+    width: 40%;
+    font-size: 9em;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  ion-title{
+    font-size: 18px; 
+  }

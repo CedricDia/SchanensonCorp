@@ -1,0 +1,113 @@
+<ion-content>
+  <br><br>
+  <div style="text-align: center;">
+    <label class="FirstTitle" style="font-size: medium;">QUESTIONNAIRE <br/>RICCI & GAGNON</label> <br/>
+    <label class="SecondTitle" style="font-size: small;">TEST D’AUTO-ÉVALUATION <br/> DE L’ACTIVITÉ</label> <br/>
+  </div>
+
+  <br>
+  <br>
+  <ion-grid *ngIf="!TestBegin">
+    <div style="background-color: #99333354 ;">
+      <ion-row><ion-col><ion-label><strong>But : </strong>Evaluer votre niveau d'acitivité</ion-label></ion-col></ion-row>
+      <ion-row><ion-col><ion-label><strong>Durée : </strong>5-10 min</ion-label></ion-col></ion-row>
+      <ion-row><ion-col><ion-label><strong>Lieu : </strong>Dans un endroit calme</ion-label></ion-col></ion-row>
+      <ion-row><ion-col><ion-label><strong>Consignes : </strong>Remplir le questionnaire le plus honnêtement possible</ion-label></ion-col></ion-row>
+    </div>
+    <br><br><br>
+    <ion-row class="ion-row-center begin-pos"><ion-col><ion-button class="test" (click)="BeginFunction()" *ngIf="!TestBegin">Commencez !</ion-button></ion-col></ion-row>
+  
+  </ion-grid>
+
+  
+
+  <ion-grid *ngIf="TestBegin && !End">
+
+    <ion-row>
+      <ion-label class="Part">{{ allPart[currentPart] }}</ion-label>
+    </ion-row>
+
+    <ion-row class="NumberRow">
+      <!-- Affichage Quelle Question-->
+     <ion-label class="Number"> Question : {{ currentQuestion+1 }}/{{ maxQuestion }} </ion-label>
+    </ion-row>
+      
+    <ion-row>
+      <!-- Questions posées à l'utilisateur-->
+      <ion-label class="Question">{{ allAQuestion[ currentQuestion ] }}</ion-label>
+    </ion-row>
+
+
+    <ion-row>
+      <!--<ion-col *ngFor="let point of points" class="impairCol"><ion-label>{{ point.name }}</ion-label></ion-col>-->
+      <ion-col class="impairCol"><ion-label style="font-size: small">{{ Proposition[currentQuestion][0] }}</ion-label></ion-col>
+      <ion-col class="impairCol"><ion-label style="font-size: small">{{ Proposition[currentQuestion][1] }}</ion-label></ion-col>
+      <ion-col class="impairCol"><ion-label style="font-size: small">{{ Proposition[currentQuestion][2] }}</ion-label></ion-col>
+      <ion-col class="impairCol"><ion-label style="font-size: small">{{ Proposition[currentQuestion][3] }}</ion-label></ion-col>
+      <ion-col class="impairCol"><ion-label style="font-size: small">{{ Proposition[currentQuestion][4] }}</ion-label></ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="currentQuestion !== 1">
+      <!--
+      <ion-col *ngFor="let point of points" class="checkbox">
+        <ion-checkbox [(ngModel)]="point.isChecked" 
+                      (ionChange)="checkboxFunction(point.isChecked, point.name)"
+                      [disabled]="point.isActive">{{point.isActive}}
+        </ion-checkbox>
+      </ion-col>-->
+      <ion-col class="checkbox"><ion-checkbox [(ngModel)] = "boxState[0]" (click)="checkboxF(0)"></ion-checkbox></ion-col>
+      <ion-col class="checkbox"><ion-checkbox [(ngModel)] = "boxState[1]" (click)="checkboxF(1)"></ion-checkbox></ion-col>
+      <ion-col class="checkbox"><ion-checkbox [(ngModel)] = "boxState[2]" (click)="checkboxF(2)"></ion-checkbox></ion-col>
+      <ion-col class="checkbox"><ion-checkbox [(ngModel)] = "boxState[3]" (click)="checkboxF(3)"></ion-checkbox></ion-col>
+      <ion-col class="checkbox"><ion-checkbox [(ngModel)] = "boxState[4]" (click)="checkboxF(4)"></ion-checkbox></ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="currentQuestion === 1">
+      <ion-col class="checkbox"><ion-checkbox [(ngModel)] = "boxState[0]" (click)="checkboxYesNo(0, false)"></ion-checkbox></ion-col>
+      <ion-col class="checkbox"><ion-checkbox disabled = "true"></ion-checkbox></ion-col>
+      <ion-col class="checkbox"><ion-checkbox disabled = "true"></ion-checkbox></ion-col>
+      <ion-col class="checkbox"><ion-checkbox disabled = "true"></ion-checkbox></ion-col>
+      <ion-col class="checkbox"><ion-checkbox [(ngModel)] = "boxState[4]" (click)="checkboxYesNo(4, true)"></ion-checkbox></ion-col>
+    </ion-row>
+
+    <ion-row>
+      <!-- Boutons Pour naviguer entre les questions 
+                      (ionChange)="checkboxFunction(point.isChecked)" -->
+      <ion-col><ion-button *ngIf="currentQuestion" 
+                            (click)="Previous()">Question<br/>Précédente</ion-button></ion-col>
+
+      <ion-col><ion-button *ngIf="currentQuestion !== maxQuestion-1" 
+                          (click)="Next()" 
+                          [disabled]="!NextButton">Question<br/>Suivante</ion-button></ion-col>
+
+      <ion-col><ion-button *ngIf="currentQuestion === maxQuestion - 1" (click)="AffichageTotal()" [disabled]="!Fin">Terminer</ion-button></ion-col>
+
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid *ngIf="End">
+    <ion-row class="rowScore">
+      <ion-col class="Case"></ion-col>
+      <ion-col class="Case"><ion-label>Points</ion-label></ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="Case">(A) COMPORTEMENTS SÉDENTAIRES</ion-col>
+      <ion-col class="Case"><ion-label>{{ scoreA }}</ion-label></ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="Case">(B) ACTIVITÉS PHYSIQUES <br/>DE LOISIRS (DONT SPORTS)</ion-col>
+      <ion-col class="Case"><ion-label>{{ scoreB }}</ion-label></ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="Case">(C) ACTIVITÉS PHYSIQUES <br/>QUOTIDIENNES</ion-col>
+      <ion-col class="Case"><ion-label>{{ scoreC }}</ion-label></ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="Case">Total</ion-col>
+      <ion-col class="Case"><ion-label>{{ TotalScore }}</ion-label></ion-col>
+    </ion-row>
+
+  </ion-grid>
+
+
+</ion-content>

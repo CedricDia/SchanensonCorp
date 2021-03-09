@@ -1,23 +1,19 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>annuaire</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-  <h1>Annuaire EAPAS​</h1>
 
 
-  <ion-searchbar (input)="getItems($event)"></ion-searchbar> 
+<ion-content *ngIf="!selected">
+  <h1 style="margin-top : 15% ;">Annuaire EAPAS​</h1>
 
-  <ion-card *ngFor="let eapas of listEapas">
+
+  <ion-searchbar placeholder="Search..." [(ngModel)]="filterTerm" animated="true"></ion-searchbar> 
+
+  <ion-card *ngFor="let eapas of listEapas | filter:filterTerm;">
     <ion-card-header>
       
         <ion-avatar>
-          <img src="https://pbs.twimg.com/profile_images/610519688469192707/r_v7L5HG_400x400.jpg">
+          <img [src]="eapas.pict_profil">
         </ion-avatar>
         <ion-card-title style="font-size: medium;">{{ eapas.nom }} {{ eapas.prenom }}</ion-card-title>
-        <ion-card-subtitle style="font-size: small;">{{ eapas.description }}</ion-card-subtitle>
+        <ion-card-subtitle style="font-size: small;">{{ eapas.profession }}</ion-card-subtitle>
     
       
       <ion-grid>
@@ -29,12 +25,76 @@
     </ion-card-header>
   
     <ion-card-content>
-      <ion-label *ngIf="eapas.diplome">Diplome: {{ eapas.diplome }}</ion-label>
-      <ion-label *ngIf="!eapas.diplome">Diplome: non renseigné</ion-label>
-      <ion-button color="primary" style="font-size: small;">Rentrer en contact</ion-button>
+
+      <ion-button shape="rectangle" color="primary" style="font-size: small;" (click)="selectProfil(eapas.id)">Rentrer en contact</ion-button>
     </ion-card-content>
 
   </ion-card>
 
 
 </ion-content>
+
+<ion-content *ngIf="selected">
+  <ion-card>
+    <ion-card-header>
+      
+        <ion-avatar>
+          <img [src]="listEapas[indexSelect].pict_profil">
+        </ion-avatar>
+        <ion-card-title style="font-size: medium;">{{ listEapas[indexSelect].nom }} {{ listEapas[indexSelect].prenom }}</ion-card-title>
+        <ion-card-subtitle style="font-size: small;">{{ listEapas[indexSelect].profession }}</ion-card-subtitle>
+      <br>
+      <ion-label><strong>Contact :</strong></ion-label>
+      <ion-grid>
+        <ion-row><ion-label>{{ listEapas[indexSelect].adresse }}</ion-label></ion-row>
+        <ion-row><ion-label>{{ listEapas[indexSelect].tel }}</ion-label></ion-row>
+        <ion-row><ion-label>{{ listEapas[indexSelect].mail }}</ion-label></ion-row>
+      </ion-grid>
+      
+    </ion-card-header>
+    
+    <br>
+
+    <ion-card-content>
+      <ion-label><strong>Description :</strong></ion-label>
+      <ion-grid>
+        <ion-row><ion-label *ngIf="listEapas[indexSelect].description"> {{ listEapas[indexSelect].description }}</ion-label></ion-row>
+        <ion-row><ion-label *ngIf="!listEapas[indexSelect].description">non renseigné</ion-label></ion-row>
+      </ion-grid>
+    </ion-card-content>
+
+
+    <ion-card-content>
+      <ion-label><strong>Diplôme(s) :</strong></ion-label>
+      <ion-grid>
+        <ion-row><ion-label *ngIf="listEapas[indexSelect].diplome">{{ listEapas[indexSelect].diplome }}</ion-label></ion-row>
+        <ion-row><ion-label *ngIf="!listEapas[indexSelect].diplome">non renseigné</ion-label></ion-row>
+      </ion-grid>
+    </ion-card-content>
+    <br>
+    <ion-card-content>
+      <ion-label><strong>Site web :</strong></ion-label>
+      <ion-grid>
+        <ion-row><ion-label *ngIf="listEapas[indexSelect].site"><a target="_blank" rel="noopener noreferrer" href="listEapas[indexSelect].url">{{ listEapas[indexSelect].site }}</a></ion-label></ion-row>
+        <ion-row><ion-label *ngIf="!listEapas[indexSelect].site">non renseigné</ion-label></ion-row>
+      </ion-grid>
+    </ion-card-content>
+
+    <ion-card-content>
+      <ion-button color="primary" style="font-size: small;" (click)="selectProfil(listEapas[indexSelect].id)">Annuler</ion-button>
+    </ion-card-content>
+
+  </ion-card>
+</ion-content>
+
+
+<ion-footer>
+  <ion-toolbar class="ion-color" [style.background-color]="customColor">
+    <ion-grid style="align-items: center;">
+      <ion-row text-center>
+        <ion-col><ion-button shape="round" color="warning" routerLink="/home"><ion-icon name="arrow-back-outline"></ion-icon></ion-button></ion-col>
+      </ion-row>
+    </ion-grid>
+    
+  </ion-toolbar>
+</ion-footer>

@@ -1,35 +1,48 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Home</ion-title>
-  </ion-toolbar>
-</ion-header>
+
 
 <ion-content>
 
+  <ion-icon icon="menu-outline"></ion-icon>
 
 
+
+  
   <ion-grid>
-    <ion-row class="center">
-      <div class="circle vertical-allign">
-        <ion-label class="text-circle">Bouger</ion-label>
-     </div>
+
+    <ion-row class="center" style="margin-bottom: 5%;">
+      <div style="text-align: center;">
+        <img src="./assets/Logos/Run.png" style="max-width: 35% !important; filter: drop-shadow(0 0 0.6rem #0f55d8);" routerLink="/global">
+        <br>
+        <ion-label routerLink="/global">Bouger</ion-label>
+      </div>
     </ion-row>
 
     <ion-row class="center">
       <ion-col>
-        <div class="circle vertical-allign" routerLink="/annuaire">
-          <ion-label class="text-circle">Annuaire professionnel</ion-label>
+        <div routerLink="/annuaire" style="text-align: center; ">
+          <img src="./assets/Logos/Book.png" style="filter: drop-shadow(0 0 0.6rem #0f55d8);">
+          <br>
+          <ion-label >Annuaire</ion-label>
         </div>
       </ion-col>
 
-
-      <ion-col>
-        <div class="circle vertical-allign" routerLink="/pathologie" (click)="ResetWarning()">
-          <ion-label class="text-circle">En apprendre +</ion-label>
+      <ion-col class="center">
+        <div style="text-align: center;">
+          <img src="./assets/Logos/Brain.png" routerLink="/annuaire" style="filter: drop-shadow(0 0 0.6rem #0f55d8);">
+          <br>
+          <ion-label routerLink="/annuaire">Apprendre</ion-label>
         </div>
       </ion-col>
 
     </ion-row>
   </ion-grid>
+
+
+    <div class="rectangle-round vertical-allign">
+      <ion-icon name="person" class="person"></ion-icon>
+      <a *ngIf="!this.globalVars.connected" class="warningButton" routerLink="/connexion" (click)="ResetWarning()">Connexion</a>
+      <p *ngIf="this.globalVars.connected" class="nom">{{ this.globalVars.firstname }} <br>
+      <a *ngIf="this.globalVars.connected" class="warningButton" (click)="logout()">Déconnexion</a></p>
+    </div>
 
 </ion-content>

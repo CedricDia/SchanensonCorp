@@ -18,7 +18,6 @@ import { TimerService } from './Utility/timer.service'
 
 import { NgApexchartsModule } from "ng-apexcharts";
 
-import { NativeAudio } from '@ionic-native/native-audio';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyCZzetlGKDdfTaGGamHF-dZvqWiKFYrU4g",
@@ -45,7 +44,6 @@ export const firebaseConfig = {
   providers: [
     GlobalService,/*Variables globales*/
     TimerService,/*Variables globales*/
-    NativeAudio,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy}],
   bootstrap: [AppComponent],
 })

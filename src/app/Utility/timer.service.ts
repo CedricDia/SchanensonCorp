@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { BehaviorSubject } from 'rxjs'
-import { NativeAudio } from '@ionic-native/native-audio';
 
 @Injectable({
   providedIn: 'root'
@@ -16,36 +15,9 @@ export class TimerService {
 
   constructor(
     public platform: Platform, 
-    private nativeAudio: NativeAudio
   )
     { 
-      this.platform.ready().then(() => { 
-        console.log("platform ready");
-
-        // This is used to unload the track. It's useful if you're experimenting with track locations
-        this.nativeAudio.unload('trackID').then(function() {
-            console.log("unloaded audio!");
-        }, function(err) {
-            console.log("couldn't unload audio... " + err);
-        });
-
-        // 'trackID' can be anything
-        this.nativeAudio.preloadComplex('trackID', 'assets/Sounds/Bip_timer.wav', 1, 1, 0).then(function() {
-            console.log("audio loaded!");
-        }, function(err) {
-            console.log("audio failed: " + err);
-        });
-    });
     }
-    playAudio() {
-      console.log("playing audio");
-
-      this.nativeAudio.play('trackID').then(function() {
-          console.log("playing audio!");
-      }, function(err) {
-          console.log("error playing audio: " + err);
-      });
-}
 
   /* <h1>{{ time | async }}</h1>
   <ion-button (click)="startTimer()">start</ion-button>
@@ -134,7 +106,7 @@ export class TimerService {
       if(this.timer < 0)
       {
         this.initTime('00:00');
-        this.playAudio();
+        //this.playAudio();
         this.stopTimer();
       }
     }
